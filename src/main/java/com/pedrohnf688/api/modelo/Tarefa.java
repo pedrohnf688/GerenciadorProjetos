@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,8 +40,9 @@ public class Tarefa {
 	private Date dateUpdated;
 	private String titulo;
 	private String descricao;
+
+	@Enumerated(EnumType.STRING)
 	private EnumStatusTarefa statusTarefa;
-	private String responsavel;
 	private String criador;
 
 	@ManyToOne
@@ -51,4 +54,8 @@ public class Tarefa {
 	@Cascade({ org.hibernate.annotations.CascadeType.ALL })
 	@JsonIgnore
 	private List<Comentario> listaComentarios;
+
+	@ManyToOne
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
 }

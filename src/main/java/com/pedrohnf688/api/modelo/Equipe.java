@@ -3,6 +3,7 @@ package com.pedrohnf688.api.modelo;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,8 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -34,6 +37,7 @@ public class Equipe {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_equipe")
 	private Long id;
 	private String titulo;
 	private Date dateCreated;
@@ -46,8 +50,9 @@ public class Equipe {
 	private List<Projeto> listaProjetos;
 	
 	@ManyToMany
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(name = "equipe_u", joinColumns = { @JoinColumn(name = "equipe_id",
+	@JoinTable(name = "equipe_usuario", joinColumns = { @JoinColumn(name = "equipe_id",
 	referencedColumnName = "id_equipe") }, inverseJoinColumns = { @JoinColumn(name = "usuario_id") })
 	private List<Usuario> listaUsuarios;
 

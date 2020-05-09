@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.pedrohnf688.api.modelo.Arquivo;
 
 @Repository
-public interface ArquivoRepository extends JpaRepository<Arquivo, Long> {
+public interface ArquivoRepository extends JpaRepository<Arquivo, String> {
 
 }

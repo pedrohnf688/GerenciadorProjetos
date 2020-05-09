@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,7 +41,11 @@ public class Projeto {
 	private Date dateCreated;
 	private Date dateUpdated;
 	private String descricao;
+	
+	@Enumerated(EnumType.STRING)
 	private EnumStatusProjeto statusProjeto;
+	
+	@Enumerated(EnumType.STRING)
 	private EnumTipoCategoria tipoCategoria;
 	private String qtdDiasPrevista;
 	private Float custoInicial;

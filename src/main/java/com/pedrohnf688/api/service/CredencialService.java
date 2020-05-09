@@ -6,5 +6,5 @@ import com.pedrohnf688.api.modelo.Credencial;
 
 public interface CredencialService {
 	
-	Optional<Credencial> buscarPorEmail(String email);
+	Optional<Credencial> buscarPorUsername(String username);
 }

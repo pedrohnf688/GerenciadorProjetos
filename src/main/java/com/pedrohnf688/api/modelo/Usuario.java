@@ -1,13 +1,15 @@
 package com.pedrohnf688.api.modelo;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -35,17 +37,18 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
-	private String dataNascimento;
+	private Date dataNascimento;
+
+	@Enumerated(EnumType.STRING)
 	private EnumTipoUsuario tipoUsuario;
+
+	@Enumerated(EnumType.STRING)
 	private EnumTipoSexo tipoSexo;
 	private String profissao;
 	private String descricao;
 
 	@OneToOne
 	private Arquivo fotoUser;
-
-	@ManyToMany(mappedBy="usuario")
-	private List<Equipe> listaEquipes;
 
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
