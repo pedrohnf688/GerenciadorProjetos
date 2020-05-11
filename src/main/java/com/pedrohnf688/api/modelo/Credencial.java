@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,5 +28,6 @@ public class Credencial {
 	private String senha;
 	
 	@OneToOne
+	@Cascade({ org.hibernate.annotations.CascadeType.ALL })
 	private Usuario usuario;
 }

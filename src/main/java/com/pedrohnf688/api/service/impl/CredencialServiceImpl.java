@@ -1,5 +1,6 @@
 package com.pedrohnf688.api.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -22,6 +23,30 @@ public class CredencialServiceImpl implements CredencialService {
 	public Optional<Credencial> buscarPorUsername(String username) {
 		log.info("Buscando usuario pelo username: {}", username);
 		return Optional.ofNullable(this.credencialRepository.findByUsername(username));
+	}
+
+	@Override
+	public Optional<Credencial> buscarPorId(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Optional<Credencial> salvar(Credencial credencial) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Credencial> listar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deletarPorId(Long id) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
