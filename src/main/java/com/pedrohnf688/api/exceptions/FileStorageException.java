@@ -1,4 +1,4 @@
-package com.pedrohnf688.api.helper;
+package com.pedrohnf688.api.exceptions;
 
 public class FileStorageException extends RuntimeException {
 

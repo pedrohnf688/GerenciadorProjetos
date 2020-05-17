@@ -1,4 +1,4 @@
-package com.pedrohnf688.api.helper;
+package com.pedrohnf688.api.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

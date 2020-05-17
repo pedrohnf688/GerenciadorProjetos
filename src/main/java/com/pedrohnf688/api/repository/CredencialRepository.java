@@ -9,4 +9,7 @@ import com.pedrohnf688.api.modelo.Credencial;
 public interface CredencialRepository extends JpaRepository<Credencial, Long> {
 
 	Credencial findByUsername(String username);
+
+	Credencial findByUsuarioId(Long usuarioId);
+
 }

@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
@@ -46,13 +45,11 @@ public class Usuario {
 
 	@Enumerated(EnumType.STRING)
 	private EnumTipoSexo tipoSexo;
-	private String profissao;
+	private String cargo;
 	private String descricao;
+	private Boolean lider = false;
 
-	@OneToOne
-	private Arquivo fotoUser;
-
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
 	@Cascade({ org.hibernate.annotations.CascadeType.ALL })
 	@JsonIgnore
@@ -61,5 +58,11 @@ public class Usuario {
 	@ManyToOne
 	@JoinColumn(name = "equipe_id")
 	private Equipe equipe;
+	
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, orphanRemoval = true)
+	@Fetch(FetchMode.SUBSELECT)
+	@Cascade({ org.hibernate.annotations.CascadeType.ALL })
+	@JsonIgnore	
+	private List<Solicitacao> listaSolitacoes;
 
 }

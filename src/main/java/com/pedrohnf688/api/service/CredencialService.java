@@ -17,4 +17,5 @@ public interface CredencialService {
 
 	Optional<Credencial> buscarPorUsername(String username);
 
+	Optional<Credencial> findByUsuarioId(Long usuarioId);
 }

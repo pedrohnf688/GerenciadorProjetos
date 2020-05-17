@@ -4,48 +4,47 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pedrohnf688.api.modelo.Equipe;
+import com.pedrohnf688.api.repository.EquipeRepository;
 import com.pedrohnf688.api.service.EquipeService;
 
 @Service
 public class EquipeServiceImpl implements EquipeService {
 
+	@Autowired
+	private EquipeRepository er;
+
 	@Override
 	public Optional<Equipe> buscarPorId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.er.findById(id);
 	}
 
 	@Override
 	public Optional<Equipe> salvar(Equipe equipe) {
-		// TODO Auto-generated method stub
-		return null;
+		return Optional.ofNullable(this.er.save(equipe));
 	}
 
 	@Override
 	public List<Equipe> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.er.findAll();
 	}
 
 	@Override
 	public void deletarPorId(Long id) {
-		// TODO Auto-generated method stub
-
+		this.er.deleteById(id);
 	}
 
 	@Override
 	public Optional<Equipe> buscarPorTitulo(String titulo) {
-		// TODO Auto-generated method stub
-		return null;
+		return Optional.ofNullable(this.er.findByTitulo(titulo));
 	}
 
 	@Override
 	public List<Equipe> listaPorDateCreated(Date date) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.er.findAllByDateCreated(date);
 	}
 
 }

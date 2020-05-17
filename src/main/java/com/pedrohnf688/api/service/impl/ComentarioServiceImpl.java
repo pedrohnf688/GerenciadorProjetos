@@ -3,49 +3,47 @@ package com.pedrohnf688.api.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pedrohnf688.api.modelo.Comentario;
-import com.pedrohnf688.api.modelo.Projeto;
+import com.pedrohnf688.api.repository.ComentarioRepository;
 import com.pedrohnf688.api.service.ComentarioService;
 
 @Service
 public class ComentarioServiceImpl implements ComentarioService {
 
+	@Autowired
+	private ComentarioRepository cr;
+
 	@Override
 	public Optional<Comentario> buscarPorId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.cr.findById(id);
 	}
 
 	@Override
-	public Optional<Comentario> salvar(Comentario Comentario) {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<Comentario> salvar(Comentario comentario) {
+		return Optional.ofNullable(this.cr.save(comentario));
 	}
 
 	@Override
 	public List<Comentario> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.cr.findAll();
 	}
 
 	@Override
 	public void deletarPorId(Long id) {
-		// TODO Auto-generated method stub
-
+		this.cr.deleteById(id);
 	}
 
 	@Override
 	public List<Comentario> listaPorAutor(String autor) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.cr.findAllByAutor(autor);
 	}
 
 	@Override
-	public List<Projeto> findAllByTarefaId(Long tarefaId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Comentario> findAllByTarefaId(Long tarefaId) {
+		return this.cr.findAllByTarefaId(tarefaId);
 	}
 
 }

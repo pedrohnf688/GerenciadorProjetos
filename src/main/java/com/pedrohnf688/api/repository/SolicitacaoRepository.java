@@ -5,10 +5,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.pedrohnf688.api.modelo.Orcamento;
+import com.pedrohnf688.api.modelo.Solicitacao;
 
 @Repository
-public interface OrcamentoRepository extends JpaRepository<Orcamento, Long>{
+public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> {
 
-	List<Orcamento> findAllByProjetoId(Long projetoId);
+	List<Solicitacao> findAllByUsuarioId(Long usuarioId);
+	
 }

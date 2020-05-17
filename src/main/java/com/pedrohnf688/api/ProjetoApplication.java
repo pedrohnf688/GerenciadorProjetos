@@ -17,16 +17,12 @@ import com.pedrohnf688.api.modelo.Usuario;
 import com.pedrohnf688.api.modelo.enums.EnumTipoSexo;
 import com.pedrohnf688.api.modelo.enums.EnumTipoUsuario;
 import com.pedrohnf688.api.repository.CredencialRepository;
-import com.pedrohnf688.api.repository.UsuarioRepository;
 import com.pedrohnf688.api.service.impl.CredencialServiceImpl;
 
 @SpringBootApplication
 @EnableAutoConfiguration
 @ComponentScan
 public class ProjetoApplication {
-
-	@Autowired
-	private UsuarioRepository ur;
 
 	@Autowired
 	private CredencialRepository cr;
@@ -50,11 +46,10 @@ public class ProjetoApplication {
 				u1.setDataNascimento(new Date());
 				u1.setDescricao("kkkk");
 				u1.setNome("Pedro");
-				u1.setProfissao("Programador");
+				u1.setCargo("Programador");
 				u1.setTipoSexo(EnumTipoSexo.MASCULINO);
 				u1.setTipoUsuario(EnumTipoUsuario.ROLE_ADMINISTRADOR);
 
-				this.ur.save(u1);
 
 				Credencial c1 = new Credencial();
 				c1.setEmail("pedrohnf2014@gmail.com");

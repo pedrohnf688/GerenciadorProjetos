@@ -3,7 +3,10 @@ package com.pedrohnf688.api.modelo;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -30,5 +33,11 @@ public class Arquivo {
 	private String fileDownloadUri;
 	private long size;
 
+	@OneToOne
+	private Usuario fotoPerfil;
+	
+	@ManyToOne
+	@JoinColumn(name = "solicitacao_id")
+	private Solicitacao solicitacao;
 
 }

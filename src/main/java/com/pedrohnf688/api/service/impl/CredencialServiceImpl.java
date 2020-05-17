@@ -18,35 +18,36 @@ public class CredencialServiceImpl implements CredencialService {
 	private static final Logger log = LoggerFactory.getLogger(CredencialService.class);
 
 	@Autowired
-	private CredencialRepository credencialRepository;
+	private CredencialRepository cr;
 
 	public Optional<Credencial> buscarPorUsername(String username) {
 		log.info("Buscando usuario pelo username: {}", username);
-		return Optional.ofNullable(this.credencialRepository.findByUsername(username));
+		return Optional.ofNullable(this.cr.findByUsername(username));
 	}
 
 	@Override
 	public Optional<Credencial> buscarPorId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.cr.findById(id);
 	}
 
 	@Override
 	public Optional<Credencial> salvar(Credencial credencial) {
-		// TODO Auto-generated method stub
-		return null;
+		return Optional.ofNullable(this.cr.save(credencial));
 	}
 
 	@Override
 	public List<Credencial> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.cr.findAll();
 	}
 
 	@Override
 	public void deletarPorId(Long id) {
-		// TODO Auto-generated method stub
+		this.cr.deleteById(id);
+	}
 
+	@Override
+	public Optional<Credencial> findByUsuarioId(Long usuarioId) {
+		return Optional.ofNullable(this.cr.findByUsuarioId(usuarioId));
 	}
 
 }

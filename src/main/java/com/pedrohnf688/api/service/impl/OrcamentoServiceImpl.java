@@ -3,42 +3,42 @@ package com.pedrohnf688.api.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pedrohnf688.api.modelo.Orcamento;
+import com.pedrohnf688.api.repository.OrcamentoRepository;
 import com.pedrohnf688.api.service.OrcamentoService;
 
 @Service
 public class OrcamentoServiceImpl implements OrcamentoService {
 
+	@Autowired
+	private OrcamentoRepository or;
+
 	@Override
 	public Optional<Orcamento> buscarPorId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.or.findById(id);
 	}
 
 	@Override
 	public Optional<Orcamento> salvar(Orcamento orcamento) {
-		// TODO Auto-generated method stub
-		return null;
+		return Optional.ofNullable(this.or.save(orcamento));
 	}
 
 	@Override
 	public List<Orcamento> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.or.findAll();
 	}
 
 	@Override
 	public void deletarPorId(Long id) {
-		// TODO Auto-generated method stub
-
+		this.or.deleteById(id);
 	}
 
 	@Override
 	public List<Orcamento> findAllByProjetoId(Long projetoId) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.or.findAllByProjetoId(projetoId);
 	}
 
 }

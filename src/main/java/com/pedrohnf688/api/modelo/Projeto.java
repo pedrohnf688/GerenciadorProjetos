@@ -47,21 +47,21 @@ public class Projeto {
 	
 	@Enumerated(EnumType.STRING)
 	private EnumTipoCategoria tipoCategoria;
-	private String qtdDiasPrevista;
-	private Float custoInicial;
+	private Integer qtdDiasPrevista;
+	private Double custoInicial;
 	private String infoContato;
 
 	@ManyToOne
 	@JoinColumn(name = "equipe_id")
 	private Equipe equipe;
 	
-	@OneToMany(mappedBy = "projeto", fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy = "projeto", fetch = FetchType.LAZY, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
 	@Cascade({ org.hibernate.annotations.CascadeType.ALL })
 	@JsonIgnore
 	private List<Tarefa> listaTarefas;
 
-	@OneToMany(mappedBy = "projeto", fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy = "projeto", fetch = FetchType.LAZY, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
 	@Cascade({ org.hibernate.annotations.CascadeType.ALL })
 	@JsonIgnore

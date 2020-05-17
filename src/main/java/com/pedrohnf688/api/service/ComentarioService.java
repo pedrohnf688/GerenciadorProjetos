@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.pedrohnf688.api.modelo.Comentario;
-import com.pedrohnf688.api.modelo.Projeto;
 
 public interface ComentarioService {
 
@@ -18,5 +17,5 @@ public interface ComentarioService {
 
 	List<Comentario> listaPorAutor(String autor);
 
-	List<Projeto> findAllByTarefaId(Long tarefaId);
+	List<Comentario> findAllByTarefaId(Long tarefaId);
 }

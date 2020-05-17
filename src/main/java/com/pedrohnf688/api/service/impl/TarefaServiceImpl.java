@@ -4,73 +4,68 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pedrohnf688.api.modelo.Tarefa;
 import com.pedrohnf688.api.modelo.enums.EnumStatusTarefa;
+import com.pedrohnf688.api.repository.TarefaRepository;
 import com.pedrohnf688.api.service.TarefaService;
 
 @Service
 public class TarefaServiceImpl implements TarefaService {
 
+	@Autowired
+	private TarefaRepository tr;
+
 	@Override
 	public Optional<Tarefa> buscarPorId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.tr.findById(id);
 	}
 
 	@Override
 	public Optional<Tarefa> salvar(Tarefa tarefa) {
-		// TODO Auto-generated method stub
-		return null;
+		return Optional.ofNullable(this.tr.save(tarefa));
 	}
 
 	@Override
 	public List<Tarefa> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.tr.findAll();
 	}
 
 	@Override
 	public void deletarPorId(Long id) {
-		// TODO Auto-generated method stub
-
+		this.tr.deleteById(id);
 	}
 
 	@Override
 	public List<Tarefa> listaPorDateCreated(Date date) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.tr.findAllByDateCreated(date);
 	}
 
 	@Override
 	public Optional<Tarefa> buscarPorTitulo(String titulo) {
-		// TODO Auto-generated method stub
-		return null;
+		return Optional.ofNullable(this.tr.findByTitulo(titulo));
 	}
 
 	@Override
 	public List<Tarefa> listaPorDateEStatus(Date date, EnumStatusTarefa status) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.tr.findAllByDateCreatedAndStatusTarefa(date, status);
 	}
 
 	@Override
 	public List<Tarefa> listaPorStatus(EnumStatusTarefa status) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.tr.findAllByStatusTarefa(status);
 	}
 
 	@Override
 	public List<Tarefa> findAllByUsuarioId(Long usuarioId) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.tr.findAllByUsuarioId(usuarioId);
 	}
 
 	@Override
 	public List<Tarefa> findAllByProjetoId(Long projetoId) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.tr.findAllByProjetoId(projetoId);
 	}
 
 }

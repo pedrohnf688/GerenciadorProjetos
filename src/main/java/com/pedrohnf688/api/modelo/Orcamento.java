@@ -27,7 +27,7 @@ public class Orcamento {
 	private Long id;
 	private Date dateCreated;
 	private Integer qtdDiasTrabalhada;
-	private Float custoFinal;
+	private Double custoFinal;
 	private String observacoes;
 	
 	@ManyToOne

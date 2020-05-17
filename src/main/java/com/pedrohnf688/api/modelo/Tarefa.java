@@ -49,7 +49,7 @@ public class Tarefa {
 	@JoinColumn(name = "projeto_id")
 	private Projeto projeto;
 
-	@OneToMany(mappedBy = "tarefa", fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy = "tarefa", fetch = FetchType.LAZY, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
 	@Cascade({ org.hibernate.annotations.CascadeType.ALL })
 	@JsonIgnore
