@@ -1,7 +1,6 @@
 package com.pedrohnf688.api;
 
 import java.util.Date;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -38,28 +37,37 @@ public class ProjetoApplication {
 	public CommandLineRunner commandLineRunner() {
 		return args -> {
 
-			Optional<Credencial> c = this.csi.buscarPorUsername("pedrohnf688");
+			Usuario u1 = new Usuario();
+			u1.setDataNascimento(new Date());
+			u1.setDescricao("Sou formado em análise e desenvolvedor  de sistemas");
+			u1.setNome("Pedro Henrique");
+			u1.setCargo("Programador");
+			u1.setTipoSexo(EnumTipoSexo.MASCULINO);
+			u1.setTipoUsuario(EnumTipoUsuario.ROLE_ADMINISTRADOR);
 
-			if (!c.isPresent()) {
+			Credencial c1 = new Credencial();
+			c1.setEmail("pedrohnf2014@email.com");
+			c1.setSenha(PasswordUtils.gerarBCrypt("12345"));
+			c1.setUsername("pedrohnf688");
+			c1.setUsuario(u1);
+			this.cr.save(c1);
+						
+			Usuario u2 = new Usuario();
+			u2.setDataNascimento(new Date());
+			u2.setDescricao("kkkk");
+			u2.setNome("Pedro");
+			u2.setCargo("Programador II");
+			u2.setTipoSexo(EnumTipoSexo.MASCULINO);
+			u2.setTipoUsuario(EnumTipoUsuario.ROLE_DESENVOLVEDOR);
 
-				Usuario u1 = new Usuario();
-				u1.setDataNascimento(new Date());
-				u1.setDescricao("kkkk");
-				u1.setNome("Pedro");
-				u1.setCargo("Programador");
-				u1.setTipoSexo(EnumTipoSexo.MASCULINO);
-				u1.setTipoUsuario(EnumTipoUsuario.ROLE_ADMINISTRADOR);
+			Credencial c2 = new Credencial();
+			c2.setEmail("pedrohnf@email.com");
+			c2.setSenha(PasswordUtils.gerarBCrypt("12345"));
+			c2.setUsername("pedrohnf");
+			c2.setUsuario(u2);
+			this.cr.save(c2);
 
-
-				Credencial c1 = new Credencial();
-				c1.setEmail("pedrohnf2014@gmail.com");
-				c1.setSenha(PasswordUtils.gerarBCrypt("12345"));
-				c1.setUsername("pedrohnf688");
-				c1.setUsuario(u1);
-
-				this.cr.save(c1);
-
-			}
+			
 
 		};
 	}
