@@ -45,10 +45,10 @@ public class ProjetoApplication {
 
 	@Autowired
 	private SolicitacaoServiceImpl ssi;
-	
+
 	@Autowired
 	private ProjetoServiceImpl psi;
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetoApplication.class, args);
 	}
@@ -115,8 +115,6 @@ public class ProjetoApplication {
 			s.setUsuario(u1);
 			this.ssi.salvar(s);
 
-			this.ssi.deletarPorId(1L);
-
 			Projeto p = new Projeto();
 			p.setDateCreated(new Date());
 			p.setInfoContato("390845704");
@@ -130,8 +128,6 @@ public class ProjetoApplication {
 			p.setEquipe(e);
 			this.psi.salvar(p);
 
-			
-			
 		};
 	}
 
