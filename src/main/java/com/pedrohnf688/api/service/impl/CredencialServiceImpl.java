@@ -50,4 +50,9 @@ public class CredencialServiceImpl implements CredencialService {
 		return Optional.ofNullable(this.cr.findByUsuarioId(usuarioId));
 	}
 
+	@Override
+	public Optional<Credencial> buscarPorEmail(String email) {
+		return Optional.ofNullable(this.cr.findByEmail(email));
+	}
+
 }

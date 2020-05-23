@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
@@ -58,5 +59,8 @@ public class Solicitacao {
 	@JsonIgnore	
 	private List<Arquivo> listaImgs;
 	
+	@OneToOne
+	@JoinColumn(name="projeto_id")
+	private Projeto projeto;
 	
 }

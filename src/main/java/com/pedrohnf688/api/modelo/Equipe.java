@@ -28,24 +28,26 @@ import lombok.NoArgsConstructor;
 @Entity(name = "equipe")
 @Table
 public class Equipe {
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_equipe")
 	private Long id;
 	private String titulo;
 	private Date dateCreated;
 	private Integer qtdMembros;
-	
-	@OneToMany(mappedBy = "equipe", fetch = FetchType.LAZY, orphanRemoval = true)
+
+	@OneToMany(mappedBy = "equipe", fetch = FetchType.LAZY, orphanRemoval = false)
 	@Fetch(FetchMode.SUBSELECT)
-	@Cascade({ org.hibernate.annotations.CascadeType.ALL })
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.PERSIST,
+			org.hibernate.annotations.CascadeType.MERGE })
 	@JsonIgnore
 	private List<Projeto> listaProjetos;
-	
-	@OneToMany(mappedBy = "equipe", fetch = FetchType.LAZY, orphanRemoval = true)
+
+	@OneToMany(mappedBy = "equipe", fetch = FetchType.LAZY, orphanRemoval = false)
 	@Fetch(FetchMode.SUBSELECT)
-	@Cascade({ org.hibernate.annotations.CascadeType.ALL })
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.PERSIST,
+			org.hibernate.annotations.CascadeType.MERGE })
 	@JsonIgnore
 	private List<Usuario> listaUsuarios;
 

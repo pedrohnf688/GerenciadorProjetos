@@ -51,7 +51,9 @@ public class Tarefa {
 
 	@OneToMany(mappedBy = "tarefa", fetch = FetchType.LAZY, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
-	@Cascade({ org.hibernate.annotations.CascadeType.ALL })
+	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, 
+        org.hibernate.annotations.CascadeType.PERSIST, 
+        org.hibernate.annotations.CascadeType.MERGE})
 	@JsonIgnore
 	private List<Comentario> listaComentarios;
 

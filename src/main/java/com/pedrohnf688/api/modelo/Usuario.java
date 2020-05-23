@@ -49,9 +49,11 @@ public class Usuario {
 	private String descricao;
 	private Boolean lider = false;
 
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, orphanRemoval = false)
 	@Fetch(FetchMode.SUBSELECT)
-	@Cascade({ org.hibernate.annotations.CascadeType.ALL })
+	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, 
+        org.hibernate.annotations.CascadeType.PERSIST, 
+        org.hibernate.annotations.CascadeType.MERGE})
 	@JsonIgnore
 	private List<Tarefa> listaTarefas;
 
@@ -59,9 +61,11 @@ public class Usuario {
 	@JoinColumn(name = "equipe_id")
 	private Equipe equipe;
 	
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, orphanRemoval = false)
 	@Fetch(FetchMode.SUBSELECT)
-	@Cascade({ org.hibernate.annotations.CascadeType.ALL })
+	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, 
+        org.hibernate.annotations.CascadeType.PERSIST, 
+        org.hibernate.annotations.CascadeType.MERGE})
 	@JsonIgnore	
 	private List<Solicitacao> listaSolitacoes;
 
