@@ -1,10 +1,12 @@
 package com.pedrohnf688.api.service.impl;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.pedrohnf688.api.modelo.Tarefa;
@@ -29,8 +31,8 @@ public class TarefaServiceImpl implements TarefaService {
 	}
 
 	@Override
-	public List<Tarefa> listar() {
-		return this.tr.findAll();
+	public Page<Tarefa> listar(Pageable pageable) {
+		return this.tr.findAll(pageable);
 	}
 
 	@Override
@@ -39,8 +41,8 @@ public class TarefaServiceImpl implements TarefaService {
 	}
 
 	@Override
-	public List<Tarefa> listaPorDateCreated(Date date) {
-		return this.tr.findAllByDateCreated(date);
+	public Page<Tarefa> listaPorDateCreated(Date date, PageRequest pageRequest) {
+		return this.tr.findAllByDateCreated(date, pageRequest);
 	}
 
 	@Override
@@ -49,23 +51,23 @@ public class TarefaServiceImpl implements TarefaService {
 	}
 
 	@Override
-	public List<Tarefa> listaPorDateEStatus(Date date, EnumStatusTarefa status) {
-		return this.tr.findAllByDateCreatedAndStatusTarefa(date, status);
+	public Page<Tarefa> listaPorDateEStatus(Date date, EnumStatusTarefa status, PageRequest pageRequest) {
+		return this.tr.findAllByDateCreatedAndStatusTarefa(date, status, pageRequest);
 	}
 
 	@Override
-	public List<Tarefa> listaPorStatus(EnumStatusTarefa status) {
-		return this.tr.findAllByStatusTarefa(status);
+	public Page<Tarefa> listaPorStatus(EnumStatusTarefa status, PageRequest pageRequest) {
+		return this.tr.findAllByStatusTarefa(status, pageRequest);
 	}
 
 	@Override
-	public List<Tarefa> findAllByUsuarioId(Long usuarioId) {
-		return this.tr.findAllByUsuarioId(usuarioId);
+	public Page<Tarefa> findAllByUsuarioId(Long usuarioId, PageRequest pageRequest) {
+		return this.tr.findAllByUsuarioId(usuarioId, pageRequest);
 	}
 
 	@Override
-	public List<Tarefa> findAllByProjetoId(Long projetoId) {
-		return this.tr.findAllByProjetoId(projetoId);
+	public Page<Tarefa> findAllByProjetoId(Long projetoId, PageRequest pageRequest) {
+		return this.tr.findAllByProjetoId(projetoId, pageRequest);
 	}
 
 }

@@ -1,8 +1,8 @@
 package com.pedrohnf688.api.repository;
 
-import java.util.List;
-
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,10 +11,10 @@ import com.pedrohnf688.api.modelo.enums.EnumTipoUsuario;
 
 @Transactional(readOnly = true)
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+public interface UsuarioRepository extends PagingAndSortingRepository<Usuario, Long> {
 
-	List<Usuario> findByTipoUsuario(EnumTipoUsuario perfil);
-	
-	List<Usuario> findAllByEquipeId(Long equipeId);
+	Page<Usuario> findByTipoUsuario(EnumTipoUsuario perfil, Pageable pageable);
+
+	Page<Usuario> findAllByEquipeId(Long equipeId, Pageable pageable);
 
 }

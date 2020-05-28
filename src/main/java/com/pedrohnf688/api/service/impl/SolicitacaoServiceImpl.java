@@ -1,9 +1,11 @@
 package com.pedrohnf688.api.service.impl;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.pedrohnf688.api.modelo.Solicitacao;
@@ -27,8 +29,8 @@ public class SolicitacaoServiceImpl implements SolicitacaoService {
 	}
 
 	@Override
-	public List<Solicitacao> listar() {
-		return this.sr.findAll();
+	public Page<Solicitacao> listar(Pageable pageable) {
+		return this.sr.findAll(pageable);
 	}
 
 	@Override
@@ -37,8 +39,8 @@ public class SolicitacaoServiceImpl implements SolicitacaoService {
 	}
 
 	@Override
-	public List<Solicitacao> findAllByUsuarioId(Long usuarioId) {
-		return this.sr.findAllByUsuarioId(usuarioId);
+	public Page<Solicitacao> findAllByUsuarioId(Long usuarioId, PageRequest pageRequest) {
+		return this.sr.findAllByUsuarioId(usuarioId, pageRequest);
 	}
 
 }

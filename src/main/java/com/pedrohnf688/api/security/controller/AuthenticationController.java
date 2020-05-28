@@ -29,7 +29,7 @@ import com.pedrohnf688.api.modelo.Credencial;
 import com.pedrohnf688.api.security.dto.JwtAuthenticationDto;
 import com.pedrohnf688.api.security.dto.TokenDto;
 import com.pedrohnf688.api.security.utils.JwtTokenUtil;
-import com.pedrohnf688.api.service.CredencialService;
+import com.pedrohnf688.api.service.impl.CredencialServiceImpl;
 
 @RestController
 @RequestMapping("/auth")
@@ -50,7 +50,7 @@ public class AuthenticationController {
 	private UserDetailsService userDetailsService;
 
 	@Autowired
-	private CredencialService credencialService;
+	private CredencialServiceImpl csi;
 	
 	@PostMapping
 	public ResponseEntity<Response<TokenDto>> gerarTokenJwt(@Valid @RequestBody JwtAuthenticationDto authenticationDto,
@@ -76,7 +76,7 @@ public class AuthenticationController {
 
 		String token = jwtTokenUtil.obterToken(userDetails);
 
-		Optional<Credencial> credencial = this.credencialService.buscarPorUsername(authenticationDto.getUsername());
+		Optional<Credencial> credencial = this.csi.buscarPorUsername(authenticationDto.getUsername());
 		
 		r.addHeader(TOKEN_HEADER, BEARER_PREFIX + " " + token);
 		r.addHeader("Usuario","ID:"+credencial.get().getUsuario().getId());

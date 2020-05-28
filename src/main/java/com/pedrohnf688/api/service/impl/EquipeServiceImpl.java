@@ -1,10 +1,12 @@
 package com.pedrohnf688.api.service.impl;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.pedrohnf688.api.modelo.Equipe;
@@ -28,8 +30,8 @@ public class EquipeServiceImpl implements EquipeService {
 	}
 
 	@Override
-	public List<Equipe> listar() {
-		return this.er.findAll();
+	public Page<Equipe> listar(Pageable pageable) {
+		return this.er.findAll(pageable);
 	}
 
 	@Override
@@ -43,8 +45,8 @@ public class EquipeServiceImpl implements EquipeService {
 	}
 
 	@Override
-	public List<Equipe> listaPorDateCreated(Date date) {
-		return this.er.findAllByDateCreated(date);
+	public Page<Equipe> listaPorDateCreated(Date date, PageRequest pageRequest) {
+		return this.er.findAllByDateCreated(date, pageRequest);
 	}
 
 }

@@ -1,8 +1,8 @@
 package com.pedrohnf688.api.repository;
 
-import java.util.List;
-
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import com.pedrohnf688.api.modelo.Projeto;
@@ -10,12 +10,12 @@ import com.pedrohnf688.api.modelo.enums.EnumStatusProjeto;
 import com.pedrohnf688.api.modelo.enums.EnumTipoCategoria;
 
 @Repository
-public interface ProjetoRepository extends JpaRepository<Projeto, Long> {
+public interface ProjetoRepository extends PagingAndSortingRepository<Projeto, Long> {
 
-	List<Projeto> findAllByTipoCategoria(EnumTipoCategoria categoria);
+	Page<Projeto> findAllByTipoCategoria(EnumTipoCategoria categoria, Pageable pageable);
 
-	List<Projeto> findAllByStatusProjeto(EnumStatusProjeto status);
+	Page<Projeto> findAllByStatusProjeto(EnumStatusProjeto status, Pageable pageable);
 
-	List<Projeto> findAllByEquipeId(Long equipeId);
+	Page<Projeto> findAllByEquipeId(Long equipeId, Pageable pageable);
 
 }

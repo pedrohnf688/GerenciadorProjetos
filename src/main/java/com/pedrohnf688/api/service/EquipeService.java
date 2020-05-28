@@ -1,8 +1,11 @@
 package com.pedrohnf688.api.service;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import com.pedrohnf688.api.modelo.Equipe;
 
@@ -12,12 +15,12 @@ public interface EquipeService {
 
 	Optional<Equipe> salvar(Equipe equipe);
 
-	List<Equipe> listar();
+	Page<Equipe> listar(Pageable pageable);
 
 	void deletarPorId(Long id);
 
 	Optional<Equipe> buscarPorTitulo(String titulo);
 
-	List<Equipe> listaPorDateCreated(Date date);
+	Page<Equipe> listaPorDateCreated(Date date, PageRequest pageRequest);
 
 }

@@ -1,7 +1,10 @@
 package com.pedrohnf688.api.service;
 
-import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import com.pedrohnf688.api.modelo.Projeto;
 import com.pedrohnf688.api.modelo.enums.EnumStatusProjeto;
@@ -13,14 +16,14 @@ public interface ProjetoService {
 
 	Optional<Projeto> salvar(Projeto projeto);
 
-	List<Projeto> listar();
+	Page<Projeto> listar(Pageable pageable);
 
 	void deletarPorId(Long id);
 
-	List<Projeto> buscarPorCategoria(EnumTipoCategoria categoria);
+	Page<Projeto> buscarPorCategoria(EnumTipoCategoria categoria, PageRequest pageRequest);
 
-	List<Projeto> buscarPorStatus(EnumStatusProjeto status);
+	Page<Projeto> buscarPorStatus(EnumStatusProjeto status, PageRequest pageRequest);
 
-	List<Projeto> findAllByEquipeId(Long equipeId);
+	Page<Projeto> findAllByEquipeId(Long equipeId, PageRequest pageRequest);
 
 }

@@ -1,7 +1,10 @@
 package com.pedrohnf688.api.service;
 
-import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import com.pedrohnf688.api.modelo.Solicitacao;
 
@@ -11,9 +14,9 @@ public interface SolicitacaoService {
 
 	Optional<Solicitacao> salvar(Solicitacao solicitacao);
 
-	List<Solicitacao> listar();
+	Page<Solicitacao> listar(Pageable pageable);
 
 	void deletarPorId(Long id);
 
-	List<Solicitacao> findAllByUsuarioId(Long usuarioId);
+	Page<Solicitacao> findAllByUsuarioId(Long usuarioId, PageRequest pageRequest);
 }

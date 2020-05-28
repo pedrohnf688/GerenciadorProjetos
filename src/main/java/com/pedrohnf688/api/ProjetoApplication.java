@@ -78,7 +78,7 @@ public class ProjetoApplication {
 			u2.setNome("Pedro");
 			u2.setCargo("Programador II");
 			u2.setTipoSexo(EnumTipoSexo.MASCULINO);
-			u2.setTipoUsuario(EnumTipoUsuario.ROLE_DESENVOLVEDOR);
+			u2.setTipoUsuario(EnumTipoUsuario.ROLE_ADMINISTRADOR);
 
 			Credencial c2 = new Credencial();
 			c2.setEmail("pedrohnf@email.com");

@@ -1,7 +1,10 @@
 package com.pedrohnf688.api.service;
 
-import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import com.pedrohnf688.api.modelo.Orcamento;
 
@@ -11,10 +14,10 @@ public interface OrcamentoService {
 
 	Optional<Orcamento> salvar(Orcamento orcamento);
 
-	List<Orcamento> listar();
+	Page<Orcamento> listar(Pageable pageable);
 
 	void deletarPorId(Long id);
-	
-	List<Orcamento> findAllByProjetoId(Long projetoId);
+
+	Page<Orcamento> findAllByProjetoId(Long projetoId, PageRequest pageRequest);
 
 }

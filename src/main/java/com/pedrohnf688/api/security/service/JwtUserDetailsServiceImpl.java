@@ -10,17 +10,17 @@ import org.springframework.stereotype.Service;
 
 import com.pedrohnf688.api.modelo.Credencial;
 import com.pedrohnf688.api.security.JwtUserFactory;
-import com.pedrohnf688.api.service.CredencialService;
+import com.pedrohnf688.api.service.impl.CredencialServiceImpl;
 
 @Service("userDetailsService")
 public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
-	private CredencialService credencialService;
+	private CredencialServiceImpl csi;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<Credencial> credencial = this.credencialService.buscarPorUsername(username);
+		Optional<Credencial> credencial = this.csi.buscarPorUsername(username);
 
 		if (credencial.isPresent()) {
 			return JwtUserFactory.create(credencial.get());

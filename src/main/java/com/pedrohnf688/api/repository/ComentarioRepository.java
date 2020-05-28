@@ -1,17 +1,17 @@
 package com.pedrohnf688.api.repository;
 
-import java.util.List;
-
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import com.pedrohnf688.api.modelo.Comentario;
 
 @Repository
-public interface ComentarioRepository extends JpaRepository<Comentario, Long> {
+public interface ComentarioRepository extends PagingAndSortingRepository<Comentario, Long> {
 
-	List<Comentario> findAllByAutor(String autor);
+	Page<Comentario> findAllByAutor(String autor, Pageable pageable);
 
-	List<Comentario> findAllByTarefaId(Long tarefaId);
+	Page<Comentario> findAllByTarefaId(Long tarefaId, Pageable pageable);
 
 }

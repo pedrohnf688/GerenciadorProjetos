@@ -1,9 +1,11 @@
 package com.pedrohnf688.api.service.impl;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.pedrohnf688.api.modelo.Usuario;
@@ -28,8 +30,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public List<Usuario> listar() {
-		return this.ur.findAll();
+	public Page<Usuario> listar(Pageable pageable) {
+		return this.ur.findAll(pageable);
 	}
 
 	@Override
@@ -38,13 +40,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public List<Usuario> listaPorPerfil(EnumTipoUsuario perfil) {
-		return this.ur.findByTipoUsuario(perfil);
+	public Page<Usuario> listaPorPerfil(EnumTipoUsuario perfil, PageRequest pageRequest) {
+		return this.ur.findByTipoUsuario(perfil, pageRequest);
 	}
 
 	@Override
-	public List<Usuario> findAllByEquipeId(Long equipeId) {
-		return this.ur.findAllByEquipeId(equipeId);
+	public Page<Usuario> findAllByEquipeId(Long equipeId, PageRequest pageRequest) {
+		return this.ur.findAllByEquipeId(equipeId, pageRequest);
 	}
 
 }

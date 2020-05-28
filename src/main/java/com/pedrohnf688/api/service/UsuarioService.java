@@ -1,7 +1,10 @@
 package com.pedrohnf688.api.service;
 
-import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import com.pedrohnf688.api.modelo.Usuario;
 import com.pedrohnf688.api.modelo.enums.EnumTipoUsuario;
@@ -12,12 +15,12 @@ public interface UsuarioService {
 
 	Optional<Usuario> salvar(Usuario usuario);
 
-	List<Usuario> listar();
+	Page<Usuario> listar(Pageable pageable);
 
 	void deletarPorId(Long id);
 
-	List<Usuario> listaPorPerfil(EnumTipoUsuario perfil);
+	Page<Usuario> listaPorPerfil(EnumTipoUsuario perfil, PageRequest pageRequest);
 
-	List<Usuario> findAllByEquipeId(Long equipeId);
+	Page<Usuario> findAllByEquipeId(Long equipeId, PageRequest pageRequest);
 	
 }

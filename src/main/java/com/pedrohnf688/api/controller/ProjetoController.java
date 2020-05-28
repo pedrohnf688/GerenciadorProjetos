@@ -2,12 +2,15 @@ package com.pedrohnf688.api.controller;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -33,14 +36,21 @@ public class ProjetoController {
 
 	@Autowired
 	private ProjetoServiceImpl psi;
-	
+
 	@Autowired
 	private SolicitacaoServiceImpl ssi;
 
 	@GetMapping
-	public ResponseEntity<Response<List<Projeto>>> listAllProjetos() {
-		Response<List<Projeto>> response = new Response<List<Projeto>>();
-		List<Projeto> listaProjetos = this.psi.listar();
+	public ResponseEntity<Response<Page<Projeto>>> listAllProjetos(
+			@RequestParam(value = "pag", defaultValue = "0") int pag,
+			@RequestParam(value = "ord", defaultValue = "id") String ord,
+			@RequestParam(value = "dir", defaultValue = "DESC") String dir) {
+
+		Response<Page<Projeto>> response = new Response<Page<Projeto>>();
+
+		Pageable pageable = PageRequest.of(pag, 20, Direction.valueOf(dir), ord);
+
+		Page<Projeto> listaProjetos = this.psi.listar(pageable);
 
 		if (listaProjetos.isEmpty()) {
 			response.getErros().add("A lista de projetos está vazia.");
@@ -66,10 +76,17 @@ public class ProjetoController {
 	}
 
 	@GetMapping(value = "categoria")
-	public ResponseEntity<Response<List<Projeto>>> listProjetoByCategoria(
-			@RequestParam("categoria") EnumTipoCategoria categoria) {
-		Response<List<Projeto>> response = new Response<List<Projeto>>();
-		List<Projeto> listaProjetos = this.psi.buscarPorCategoria(categoria);
+	public ResponseEntity<Response<Page<Projeto>>> listProjetoByCategoria(
+			@RequestParam("categoria") EnumTipoCategoria categoria,
+			@RequestParam(value = "pag", defaultValue = "0") int pag,
+			@RequestParam(value = "ord", defaultValue = "id") String ord,
+			@RequestParam(value = "dir", defaultValue = "DESC") String dir) {
+
+		Response<Page<Projeto>> response = new Response<Page<Projeto>>();
+
+		PageRequest pageRequest = PageRequest.of(pag, 20, Direction.valueOf(dir), ord);
+
+		Page<Projeto> listaProjetos = this.psi.buscarPorCategoria(categoria, pageRequest);
 
 		if (listaProjetos.isEmpty()) {
 			response.getErros().add("A lista de projeto da categoria "
@@ -82,10 +99,16 @@ public class ProjetoController {
 	}
 
 	@GetMapping(value = "status")
-	public ResponseEntity<Response<List<Projeto>>> listProjetoByStatus(
-			@RequestParam("status") EnumStatusProjeto status) {
-		Response<List<Projeto>> response = new Response<List<Projeto>>();
-		List<Projeto> listaProjetos = this.psi.buscarPorStatus(status);
+	public ResponseEntity<Response<Page<Projeto>>> listProjetoByStatus(@RequestParam("status") EnumStatusProjeto status,
+			@RequestParam(value = "pag", defaultValue = "0") int pag,
+			@RequestParam(value = "ord", defaultValue = "id") String ord,
+			@RequestParam(value = "dir", defaultValue = "DESC") String dir) {
+
+		Response<Page<Projeto>> response = new Response<Page<Projeto>>();
+
+		PageRequest pageRequest = PageRequest.of(pag, 20, Direction.valueOf(dir), ord);
+
+		Page<Projeto> listaProjetos = this.psi.buscarPorStatus(status, pageRequest);
 
 		if (listaProjetos.isEmpty()) {
 			response.getErros().add("A lista de projeto de status "
@@ -98,9 +121,16 @@ public class ProjetoController {
 	}
 
 	@GetMapping(value = "equipe/{equipeId}")
-	public ResponseEntity<Response<List<Projeto>>> listProjetoByEquipeId(@RequestParam("equipeId") Long equipeId) {
-		Response<List<Projeto>> response = new Response<List<Projeto>>();
-		List<Projeto> listaProjetos = this.psi.findAllByEquipeId(equipeId);
+	public ResponseEntity<Response<Page<Projeto>>> listProjetoByEquipeId(@RequestParam("equipeId") Long equipeId,
+			@RequestParam(value = "pag", defaultValue = "0") int pag,
+			@RequestParam(value = "ord", defaultValue = "id") String ord,
+			@RequestParam(value = "dir", defaultValue = "DESC") String dir) {
+
+		Response<Page<Projeto>> response = new Response<Page<Projeto>>();
+
+		PageRequest pageRequest = PageRequest.of(pag, 20, Direction.valueOf(dir), ord);
+
+		Page<Projeto> listaProjetos = this.psi.findAllByEquipeId(equipeId, pageRequest);
 
 		if (listaProjetos.isEmpty()) {
 			response.getErros().add("A lista de projeto da equipe está vazia.");
@@ -114,18 +144,18 @@ public class ProjetoController {
 	@PostMapping("{solicitacaoId}")
 	public ResponseEntity<Response<Projeto>> cadastrarProjeto(@Valid @RequestBody Projeto projeto,
 			@PathVariable("solicitacaoId") Long solicitacaoId, BindingResult result) throws NoSuchAlgorithmException {
-		
+
 		Response<Projeto> response = new Response<Projeto>();
-		
+
 		Optional<Solicitacao> s = this.ssi.buscarPorId(solicitacaoId);
-		
-		if(!s.isPresent()) {
+
+		if (!s.isPresent()) {
 			result.addError(new ObjectError("Solicitação", "Solicitação não existente."));
 		}
-		
+
 		projeto.setDateCreated(new Date());
 
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			result.getAllErrors().forEach(error -> response.getErros().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
@@ -135,5 +165,4 @@ public class ProjetoController {
 		return ResponseEntity.ok(response);
 	}
 
-	
 }

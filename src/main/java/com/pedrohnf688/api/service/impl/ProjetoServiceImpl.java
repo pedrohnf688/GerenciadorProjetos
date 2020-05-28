@@ -1,9 +1,11 @@
 package com.pedrohnf688.api.service.impl;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.pedrohnf688.api.modelo.Projeto;
@@ -29,8 +31,8 @@ public class ProjetoServiceImpl implements ProjetoService {
 	}
 
 	@Override
-	public List<Projeto> listar() {
-		return this.pr.findAll();
+	public Page<Projeto> listar(Pageable pageable) {
+		return this.pr.findAll(pageable);
 	}
 
 	@Override
@@ -39,18 +41,18 @@ public class ProjetoServiceImpl implements ProjetoService {
 	}
 
 	@Override
-	public List<Projeto> buscarPorCategoria(EnumTipoCategoria categoria) {
-		return this.pr.findAllByTipoCategoria(categoria);
+	public Page<Projeto> buscarPorCategoria(EnumTipoCategoria categoria, PageRequest pageRequest) {
+		return this.pr.findAllByTipoCategoria(categoria, pageRequest);
 	}
 
 	@Override
-	public List<Projeto> buscarPorStatus(EnumStatusProjeto status) {
-		return this.pr.findAllByStatusProjeto(status);
+	public Page<Projeto> buscarPorStatus(EnumStatusProjeto status, PageRequest pageRequest) {
+		return this.pr.findAllByStatusProjeto(status, pageRequest);
 	}
 
 	@Override
-	public List<Projeto> findAllByEquipeId(Long equipeId) {
-		return this.pr.findAllByEquipeId(equipeId);
+	public Page<Projeto> findAllByEquipeId(Long equipeId, PageRequest pageRequest) {
+		return this.pr.findAllByEquipeId(equipeId, pageRequest);
 	}
 
 }

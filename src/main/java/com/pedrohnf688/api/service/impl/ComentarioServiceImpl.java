@@ -1,9 +1,11 @@
 package com.pedrohnf688.api.service.impl;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.pedrohnf688.api.modelo.Comentario;
@@ -27,8 +29,8 @@ public class ComentarioServiceImpl implements ComentarioService {
 	}
 
 	@Override
-	public List<Comentario> listar() {
-		return this.cr.findAll();
+	public Page<Comentario> listar(Pageable pageable) {
+		return this.cr.findAll(pageable);
 	}
 
 	@Override
@@ -37,13 +39,13 @@ public class ComentarioServiceImpl implements ComentarioService {
 	}
 
 	@Override
-	public List<Comentario> listaPorAutor(String autor) {
-		return this.cr.findAllByAutor(autor);
+	public Page<Comentario> listaPorAutor(String autor, PageRequest pageRequest) {
+		return this.cr.findAllByAutor(autor, pageRequest);
 	}
 
 	@Override
-	public List<Comentario> findAllByTarefaId(Long tarefaId) {
-		return this.cr.findAllByTarefaId(tarefaId);
+	public Page<Comentario> findAllByTarefaId(Long tarefaId, PageRequest pageRequest) {
+		return this.cr.findAllByTarefaId(tarefaId, pageRequest);
 	}
 
 }

@@ -1,7 +1,10 @@
 package com.pedrohnf688.api.service;
 
-import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import com.pedrohnf688.api.modelo.Comentario;
 
@@ -11,11 +14,11 @@ public interface ComentarioService {
 
 	Optional<Comentario> salvar(Comentario Comentario);
 
-	List<Comentario> listar();
+	Page<Comentario> listar(Pageable pageable);
 
 	void deletarPorId(Long id);
 
-	List<Comentario> listaPorAutor(String autor);
+	Page<Comentario> listaPorAutor(String autor, PageRequest pageRequest);
 
-	List<Comentario> findAllByTarefaId(Long tarefaId);
+	Page<Comentario> findAllByTarefaId(Long tarefaId, PageRequest pageRequest);
 }
