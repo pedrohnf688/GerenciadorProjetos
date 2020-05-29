@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -138,6 +139,23 @@ public class ComentarioController {
 
 		response.setData(this.csi.salvar(comentario).get());
 		return ResponseEntity.ok(response);
+	}
+
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Response<String>> remover(@PathVariable("id") Long id) {
+
+		Response<String> response = new Response<String>();
+
+		Optional<Comentario> c = this.csi.buscarPorId(id);
+
+		if (!c.isPresent()) {
+			response.getErros().add("Comentario não existente");
+			return ResponseEntity.badRequest().body(response);
+		}
+
+		this.csi.deletarPorId(id);
+
+		return ResponseEntity.ok(new Response<String>());
 	}
 
 }

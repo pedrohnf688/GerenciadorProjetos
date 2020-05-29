@@ -31,7 +31,7 @@ public class UsuarioController {
 			@RequestParam(value = "pag", defaultValue = "0") int pag,
 			@RequestParam(value = "ord", defaultValue = "id") String ord,
 			@RequestParam(value = "dir", defaultValue = "DESC") String dir) {
-		
+
 		Response<Page<Usuario>> response = new Response<Page<Usuario>>();
 
 		Pageable pageable = PageRequest.of(pag, 20, Direction.valueOf(dir), ord);

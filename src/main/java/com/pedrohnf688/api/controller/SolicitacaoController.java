@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,7 +48,7 @@ public class SolicitacaoController {
 		Response<Page<Solicitacao>> response = new Response<Page<Solicitacao>>();
 
 		Pageable pageable = PageRequest.of(pag, 20, Direction.valueOf(dir), ord);
-		
+
 		Page<Solicitacao> listaSolicitacoes = this.ssi.listar(pageable);
 
 		if (listaSolicitacoes.isEmpty()) {
@@ -79,11 +80,11 @@ public class SolicitacaoController {
 			@PathVariable("usuarioId") Long usuarioId, @RequestParam(value = "pag", defaultValue = "0") int pag,
 			@RequestParam(value = "ord", defaultValue = "id") String ord,
 			@RequestParam(value = "dir", defaultValue = "DESC") String dir) {
-		
+
 		Response<Page<Solicitacao>> response = new Response<Page<Solicitacao>>();
-		
+
 		PageRequest pageRequest = PageRequest.of(pag, 20, Direction.valueOf(dir), ord);
-		
+
 		Page<Solicitacao> listaSolicitacoes = this.ssi.findAllByUsuarioId(usuarioId, pageRequest);
 
 		if (listaSolicitacoes.isEmpty()) {
@@ -117,6 +118,23 @@ public class SolicitacaoController {
 		solicitacao.setUsuario(u.get());
 		response.setData(this.ssi.salvar(solicitacao).get());
 		return ResponseEntity.ok(response);
+	}
+
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Response<String>> remover(@PathVariable("id") Long id) {
+
+		Response<String> response = new Response<String>();
+
+		Optional<Solicitacao> s = this.ssi.buscarPorId(id);
+
+		if (!s.isPresent()) {
+			response.getErros().add("Solicitação não existente");
+			return ResponseEntity.badRequest().body(response);
+		}
+
+		this.ssi.deletarPorId(id);
+
+		return ResponseEntity.ok(new Response<String>());
 	}
 
 }
