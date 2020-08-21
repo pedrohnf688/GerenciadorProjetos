@@ -7,18 +7,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pedrohnf688.api.modelo.Orcamento;
 import com.pedrohnf688.api.repository.OrcamentoRepository;
 import com.pedrohnf688.api.service.OrcamentoService;
 
 @Service
+@Transactional(readOnly = false)
 public class OrcamentoServiceImpl implements OrcamentoService {
 
 	@Autowired
 	private OrcamentoRepository or;
 
 	@Override
+	@Transactional(readOnly = true)
 	public Optional<Orcamento> buscarPorId(Long id) {
 		return this.or.findById(id);
 	}
@@ -29,6 +32,7 @@ public class OrcamentoServiceImpl implements OrcamentoService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Page<Orcamento> listar(Pageable pageable) {
 		return this.or.findAll(pageable);
 	}
@@ -39,6 +43,7 @@ public class OrcamentoServiceImpl implements OrcamentoService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Page<Orcamento> findAllByProjetoId(Long projetoId, PageRequest pageRequest) {
 		return this.or.findAllByProjetoId(projetoId, pageRequest);
 	}

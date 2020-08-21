@@ -30,6 +30,8 @@ import com.pedrohnf688.api.modelo.enums.EnumStatusTarefa;
 import com.pedrohnf688.api.service.impl.ProjetoServiceImpl;
 import com.pedrohnf688.api.service.impl.TarefaServiceImpl;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping(value = "/tarefa")
 public class TarefaController {
@@ -41,6 +43,7 @@ public class TarefaController {
 	private ProjetoServiceImpl psi;
 
 	@GetMapping
+	@ApiOperation(value = "Listagem de todas as tarefas")
 	public ResponseEntity<Response<Page<Tarefa>>> listAllTarefas(
 			@RequestParam(value = "pag", defaultValue = "0") int pag,
 			@RequestParam(value = "ord", defaultValue = "id") String ord,
@@ -62,6 +65,7 @@ public class TarefaController {
 	}
 
 	@GetMapping(value = "{tarefaId}")
+	@ApiOperation(value = "Busca tarefa pelo id")
 	public ResponseEntity<Response<Tarefa>> listByTarefaId(@PathVariable("tarefaId") Long tarefaId) {
 		Response<Tarefa> response = new Response<Tarefa>();
 		Optional<Tarefa> t = this.tsi.buscarPorId(tarefaId);
@@ -76,6 +80,7 @@ public class TarefaController {
 	}
 
 	@GetMapping(value = "dateCreated")
+	@ApiOperation(value = "Busca de todas as tarefas pela date de criação")
 	public ResponseEntity<Response<Page<Tarefa>>> listTarefaByDataCreated(@RequestParam("dateCreated") Date dateCreated,
 			@RequestParam(value = "pag", defaultValue = "0") int pag,
 			@RequestParam(value = "ord", defaultValue = "id") String ord,
@@ -97,6 +102,7 @@ public class TarefaController {
 	}
 
 	@GetMapping(value = "dateCreatedAndStatus")
+	@ApiOperation(value = "Busca de todas tarefa pela data de criação e status")
 	public ResponseEntity<Response<Page<Tarefa>>> listTarefaByDataCreatedAndStatus(
 			@RequestParam("dateCreated") Date dateCreated, @RequestParam("status") EnumStatusTarefa status,
 			@RequestParam(value = "pag", defaultValue = "0") int pag,
@@ -119,7 +125,8 @@ public class TarefaController {
 	}
 
 	@GetMapping(value = "status")
-	public ResponseEntity<Response<Page<Tarefa>>> listTarefaByDataCreatedAndStatus(
+	@ApiOperation(value = "Busca de todas tarefas pelo status")
+	public ResponseEntity<Response<Page<Tarefa>>> listTarefaByStatus(
 			@RequestParam("status") EnumStatusTarefa status, @RequestParam(value = "pag", defaultValue = "0") int pag,
 			@RequestParam(value = "ord", defaultValue = "id") String ord,
 			@RequestParam(value = "dir", defaultValue = "DESC") String dir) {
@@ -140,6 +147,7 @@ public class TarefaController {
 	}
 
 	@GetMapping(value = "titulo")
+	@ApiOperation(value = "Listagem de todos os usuários")
 	public ResponseEntity<Response<Tarefa>> listTarefaByTitulo(@RequestParam("titulo") String titulo) {
 		Response<Tarefa> response = new Response<Tarefa>();
 		Optional<Tarefa> t = this.tsi.buscarPorTitulo(titulo);
@@ -154,6 +162,7 @@ public class TarefaController {
 	}
 
 	@GetMapping(value = "usuario/{usuarioId}")
+	@ApiOperation(value = "Busca de todas as tarefas pelo id do usuário")
 	public ResponseEntity<Response<Page<Tarefa>>> listAllTarefasByUsuarioId(@PathVariable("usuarioId") Long usuarioId,
 			@RequestParam(value = "pag", defaultValue = "0") int pag,
 			@RequestParam(value = "ord", defaultValue = "id") String ord,
@@ -175,6 +184,7 @@ public class TarefaController {
 	}
 
 	@GetMapping(value = "projeto/{projetoId}")
+	@ApiOperation(value = "Listagem de todos as tarefas pelo id do projeto")
 	public ResponseEntity<Response<Page<Tarefa>>> listAllTarefasByProjetoId(@PathVariable("projetoId") Long projetoId,
 			@RequestParam(value = "pag", defaultValue = "0") int pag,
 			@RequestParam(value = "ord", defaultValue = "id") String ord,

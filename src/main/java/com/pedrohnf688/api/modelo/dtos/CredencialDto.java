@@ -16,21 +16,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class CredencialDto {
-	
+
 	private String email;
 	private String username;
 	private String senha;
-	private String nome;
-	private Date dataNascimento;
+
+	private String usuarioNome;
+	private Date usuarioDataNascimento;
 
 	@Enumerated(EnumType.STRING)
-	private EnumTipoUsuario tipoUsuario;
+	private EnumTipoUsuario usuarioTipoUsuario;
 
 	@Enumerated(EnumType.STRING)
-	private EnumTipoSexo tipoSexo;
-	private String cargo;
-	private String descricao;
-	private Boolean lider = false;
-
+	private EnumTipoSexo usuarioTipoSexo;
+	private String usuarioCargo;
+	private String usuarioDescricao;
+	private Boolean usuarioLider;
 
 }

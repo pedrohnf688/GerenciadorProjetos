@@ -35,9 +35,16 @@ public class Arquivo {
 
 	@OneToOne
 	private Usuario fotoPerfil;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "solicitacao_id")
 	private Solicitacao solicitacao;
+
+	public Arquivo(String fileName, String fileType, byte[] data) {
+		super();
+		this.fileName = fileName;
+		this.fileType = fileType;
+		this.data = data;
+	}
 
 }

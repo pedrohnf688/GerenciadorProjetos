@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pedrohnf688.api.helper.Response;
 import com.pedrohnf688.api.modelo.Solicitacao;
 import com.pedrohnf688.api.modelo.Usuario;
+import com.pedrohnf688.api.modelo.enums.EnumStatusSolicitacao;
 import com.pedrohnf688.api.service.impl.SolicitacaoServiceImpl;
 import com.pedrohnf688.api.service.impl.UsuarioServiceImpl;
 
@@ -108,13 +110,12 @@ public class SolicitacaoController {
 			result.addError(new ObjectError("Usuário", "Usuário não encontrado."));
 		}
 
-		solicitacao.setDateCreated(new Date());
-
 		if (result.hasErrors()) {
 			result.getAllErrors().forEach(error -> response.getErros().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
 
+		solicitacao.setDateCreated(new Date());
 		solicitacao.setUsuario(u.get());
 		response.setData(this.ssi.salvar(solicitacao).get());
 		return ResponseEntity.ok(response);
@@ -133,8 +134,30 @@ public class SolicitacaoController {
 		}
 
 		this.ssi.deletarPorId(id);
-
 		return ResponseEntity.ok(new Response<String>());
+	}
+
+	@PutMapping("/alterarStatusSolicitacao")
+	public ResponseEntity<Response<Solicitacao>> alterarStatusSolicitacao(@PathVariable("id") Long id,
+			@RequestParam("novoStatus") String novoStatus, @RequestParam("problema") String problema) {
+		
+		Response<Solicitacao> response = new Response<Solicitacao>();
+		
+		Optional<Solicitacao> s = this.ssi.buscarPorId(id);
+
+		if (!s.isPresent()) {
+			response.getErros().add("Solicitação não existente");
+			return ResponseEntity.badRequest().body(response);
+		}
+
+		if(s.get().getStatusSolicitacao() == EnumStatusSolicitacao.RECUSADA && s.get().getProblema() == null) {
+			response.getErros().add("É obrigado informar o problema da solicitação por ser recusada.");
+			return ResponseEntity.badRequest().body(response);
+		}else if(s.get().getProblema() != null) {
+			
+		}
+
+		return ResponseEntity.ok(response);
 	}
 
 }

@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
@@ -17,6 +19,8 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,8 +37,17 @@ public class Equipe {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_equipe")
 	private Long id;
+
+	@Column(name = "titulo", nullable = false, unique = true)
 	private String titulo;
+
+	@JsonProperty(access = Access.READ_ONLY)
 	private Date dateCreated;
+
+	@JsonProperty(access = Access.READ_ONLY)
+	private Date dateUpdated;
+
+	@Column(name = "qtd_membros", nullable = false)
 	private Integer qtdMembros;
 
 	@OneToMany(mappedBy = "equipe", fetch = FetchType.LAZY, orphanRemoval = false)
@@ -50,5 +63,17 @@ public class Equipe {
 			org.hibernate.annotations.CascadeType.MERGE })
 	@JsonIgnore
 	private List<Usuario> listaUsuarios;
+
+	@PrePersist
+	public void prePersist() {
+		final Date atual = new Date();
+		dateCreated = atual;
+		dateUpdated = atual;
+	}
+
+	@PreUpdate
+	public void preUpdate() {
+		dateUpdated = new Date();
+	}
 
 }

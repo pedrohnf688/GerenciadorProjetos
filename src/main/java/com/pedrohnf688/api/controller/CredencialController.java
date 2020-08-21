@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -18,10 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pedrohnf688.api.helper.PasswordUtils;
 import com.pedrohnf688.api.helper.Response;
 import com.pedrohnf688.api.modelo.Credencial;
-import com.pedrohnf688.api.modelo.Usuario;
 import com.pedrohnf688.api.modelo.dtos.CredencialDto;
 import com.pedrohnf688.api.service.impl.CredencialServiceImpl;
 
@@ -31,6 +30,9 @@ public class CredencialController {
 
 	@Autowired
 	private CredencialServiceImpl csi;
+
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@GetMapping
 	public ResponseEntity<Response<List<Credencial>>> listAllCredencial() {
@@ -75,22 +77,9 @@ public class CredencialController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		Credencial c = new Credencial();
-		c.setEmail(credencialDto.getEmail());
-		c.setSenha(PasswordUtils.gerarBCrypt(credencialDto.getSenha()));
-		c.setUsername(credencialDto.getUsername());
+		Credencial credencial = modelMapper.map(credencialDto, Credencial.class);
 
-		Usuario u = new Usuario();
-		u.setCargo(credencialDto.getCargo());
-		u.setDataNascimento(credencialDto.getDataNascimento());
-		u.setDescricao(credencialDto.getDescricao());
-		u.setNome(credencialDto.getNome());
-		u.setTipoSexo(credencialDto.getTipoSexo());
-		u.setTipoUsuario(credencialDto.getTipoUsuario());
-		u.setLider(credencialDto.getLider());
-		c.setUsuario(u);
-
-		this.csi.salvar(c);
+		this.csi.salvar(credencial);
 		response.setData(credencialDto);
 		return ResponseEntity.ok(response);
 	}

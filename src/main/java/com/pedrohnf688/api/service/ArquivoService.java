@@ -17,4 +17,5 @@ public interface ArquivoService {
 
 	Optional<Arquivo> findByfotoPerfilId(Long usuarioId);
 
+	Optional<Arquivo> salvar(Arquivo arquivo);
 }

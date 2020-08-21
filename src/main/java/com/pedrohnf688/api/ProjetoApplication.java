@@ -88,7 +88,6 @@ public class ProjetoApplication {
 			this.csi.salvar(c2);
 
 			Equipe e = new Equipe();
-			e.setDateCreated(new Date());
 			e.setTitulo("teste Equipe");
 			e.setQtdMembros(0);
 			this.esi.salvar(e);
@@ -107,7 +106,6 @@ public class ProjetoApplication {
 
 			Solicitacao s = new Solicitacao();
 			s.setProblema("");
-			s.setDateCreated(new Date());
 			s.setDescricao("Chat para grupo de estudo");
 			s.setStatusSolicitacao(EnumStatusSolicitacao.EM_ANALISE);
 			s.setTipoCategoria(EnumTipoCategoria.APLICACAO_MOBILE);
@@ -116,14 +114,10 @@ public class ProjetoApplication {
 			this.ssi.salvar(s);
 
 			Projeto p = new Projeto();
-			p.setDateCreated(new Date());
-			p.setInfoContato("390845704");
-			p.setQtdDiasPrevista(15);
 			p.setDescricao("fkjdifigjrijgeiger");
-			p.setTipoCategoria(EnumTipoCategoria.APLICACAO_MOBILE);
-			p.setCustoInicial(103.5);
 			p.setStatusProjeto(EnumStatusProjeto.ANALISANDO_VIABILIDADE);
 			p.setTitulo("ewczzzxxe");
+			p.setTipoCategoria(EnumTipoCategoria.APLICACAO_MOBILE);
 			p.setSolicitacao(s);
 			p.setEquipe(e);
 			this.psi.salvar(p);

@@ -154,13 +154,12 @@ public class ProjetoController {
 			result.addError(new ObjectError("Solicitação", "Solicitação não existente."));
 		}
 
-		projeto.setDateCreated(new Date());
-
 		if (result.hasErrors()) {
 			result.getAllErrors().forEach(error -> response.getErros().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
 
+		projeto.setDateCreated(new Date());
 		projeto.setSolicitacao(s.get());
 		response.setData(this.psi.salvar(projeto).get());
 		return ResponseEntity.ok(response);
